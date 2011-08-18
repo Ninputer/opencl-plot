@@ -27,7 +27,7 @@ namespace FvGUI
 
         public void FillPoints(int imageWidth, int imageHeight, int unit, double originx, double originy, string funcCode, string funcdxCode, string funcdyCode, double[, ,] points)
         {
-            var gpuResult = Compute(imageWidth, imageHeight, unit, funcCode, funcdxCode, funcdyCode);
+            var gpuResult = Compute(imageWidth, imageHeight, unit, (float)originx, (float)originy, funcCode, funcdxCode, funcdyCode);
 
             int w = imageWidth - 2;
             int h = imageHeight - 2;
@@ -50,7 +50,7 @@ namespace FvGUI
             }
         }
 
-        private Tuple<TFP[], TFP[]> Compute(int imageWidth, int imageHeight, int unit, string funcCode, string funcdxCode, string funcdyCode)
+        private Tuple<TFP[], TFP[]> Compute(int imageWidth, int imageHeight, int unit, float originx, float originy, string funcCode, string funcdxCode, string funcdyCode)
         {
 
             int w = imageWidth - 2;
@@ -91,8 +91,8 @@ namespace FvGUI
             ComputeKernel kernelx = program.CreateKernel("ComputeX");
             ComputeKernel kernely = program.CreateKernel("ComputeY");
 
-            TFP[] pointsArrayX = RunKernal(unit, w, h, cx, cy, bufferSize, points, kernelx);
-            TFP[] pointsArrayY = RunKernal(unit, w, h, cx, cy, bufferSize, points, kernely);
+            TFP[] pointsArrayX = RunKernal(unit, w, h, cx, cy, originx, originy, bufferSize, points, kernelx);
+            TFP[] pointsArrayY = RunKernal(unit, w, h, cx, cy, originx, originy, bufferSize, points, kernely);
 
             kernelx.Dispose();
             kernely.Dispose();
@@ -102,15 +102,15 @@ namespace FvGUI
             return Tuple.Create(pointsArrayX, pointsArrayY);
         }
 
-        private TFP[] RunKernal(int unit, int w, int h, int cx, int cy, int bufferSize, ComputeBuffer<TFP> points, ComputeKernel kernel)
+        private TFP[] RunKernal(int unit, int w, int h, int cx, int cy, float originx, float originy, int bufferSize, ComputeBuffer<TFP> points, ComputeKernel kernel)
         {
             kernel.SetMemoryArgument(0, points);
             kernel.SetValueArgument(1, unit);
             kernel.SetValueArgument(2, w);
             kernel.SetValueArgument(3, cx);
             kernel.SetValueArgument(4, cy);
-            kernel.SetValueArgument(5, default(TFP));
-            kernel.SetValueArgument(6, default(TFP));
+            kernel.SetValueArgument(5, originx);
+            kernel.SetValueArgument(6, originy);
 
             // BUG: ATI Stream v2.2 crash if event list not null.
             commands.Execute(kernel, null, new long[] { w, h }, null, events);

@@ -62,7 +62,7 @@ namespace FvGUI
 
             try
             {
-                tempOriginX = double.Parse(textBoxOriginX.Text, NumberStyles.AllowDecimalPoint);
+                tempOriginX = double.Parse(textBoxOriginX.Text, NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign);
             }
             catch (Exception e)
             {
@@ -73,7 +73,7 @@ namespace FvGUI
 
             try
             {
-                tempOriginY = double.Parse(textBoxOriginY.Text, NumberStyles.AllowDecimalPoint);
+                tempOriginY = double.Parse(textBoxOriginY.Text, NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign);
             }
             catch (Exception e)
             {
@@ -110,7 +110,7 @@ namespace FvGUI
                 g.FillRectangle(Brushes.White, 0, 0, w, h);
 
                 int cx = (int)Math.Round(w / 2 - this.originX * this.unitPixels);
-                int cy = (int)Math.Round(h / 2 - this.originY * this.unitPixels);
+                int cy = (int)Math.Round(h / 2 + this.originY * this.unitPixels);
                 int up = this.unitPixels;
                 if (this.unitPixels < SuggestedUnitPixel)
                 {

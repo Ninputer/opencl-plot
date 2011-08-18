@@ -91,8 +91,8 @@ kernel void ComputeX(
     int width,
     int cx,
     int cy,
-    fp_t origin_x,
-    fp_t origin_y)
+    float origin_x,
+    float origin_y)
 {
     int gx = get_global_id(0);
     int gy = get_global_id(1);
@@ -111,8 +111,8 @@ kernel void ComputeY(
     int width,
     int cx,
     int cy,
-    fp_t origin_x,
-    fp_t origin_y)
+    float origin_x,
+    float origin_y)
 {
     int gx = get_global_id(0);
     int gy = get_global_id(1);

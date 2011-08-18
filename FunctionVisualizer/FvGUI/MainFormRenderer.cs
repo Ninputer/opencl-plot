@@ -66,7 +66,7 @@ namespace FvGUI
 
             UpdateMessage("Computing...");
 
-            gpu.FillPoints(this.imageBuffer.Width, this.imageBuffer.Height, this.unitPixels, this.originX, this.originX, fx, dfdx, dfdy, points);
+            gpu.FillPoints(this.imageBuffer.Width, this.imageBuffer.Height, this.unitPixels, this.originX, this.originY, fx, dfdx, dfdy, points);
 
             //int done = 0;
             //int max = w + h;
