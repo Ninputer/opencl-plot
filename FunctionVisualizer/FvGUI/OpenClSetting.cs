@@ -95,6 +95,7 @@ namespace FvGUI
                 return;
             }
 
+            deviceComboBox.Items.Clear();
             deviceComboBox.Items.AddRange(devices.ToArray());
             deviceComboBox.SelectedIndex = 0;
         }
