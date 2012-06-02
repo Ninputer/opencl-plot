@@ -44,7 +44,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cloo, Version=0.8.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Cloo">
       <HintPath>..\Cloo.dll</HintPath>
     </Reference>
     <Reference Include="System" />
