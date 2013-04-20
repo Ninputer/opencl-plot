@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Linq.Expressions;
@@ -45,7 +46,7 @@ namespace FvCalculation.PrimitiveExpressions
 
         public override string ToCode()
         {
-            return "_F(" +  this.Number.ToString("#.0") + ")";
+            return "_F(" +  this.Number.ToString("#.0", CultureInfo.InvariantCulture) + ")";
         }
     }
 }
